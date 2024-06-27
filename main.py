@@ -60,7 +60,7 @@ def submit():
           status = "success"
     else:
         status = "blank entry"
-  return redirect(url_for('index' , status=status))
+    return redirect(url_for('index' , status=status))
 
 
 if __name__ == '__main__':
