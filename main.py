@@ -58,8 +58,8 @@ def submit():
           app.logger.info('++++++ URLS: %s', urls)
           app.logger.info('++++++ status code: %s, json_resp: %s', response.status_code, response.json())
           status = "success"
-  else:
-      status = "blank entry"
+    else:
+        status = "blank entry"
   return redirect(url_for('index' , status=status))
 
 
