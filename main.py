@@ -47,16 +47,18 @@ def call_api(raw_urls):
 @app.route('/submit', methods=['POST'])
 def submit():
     urls = str(request.form['ip_url']).split()
-    # Log the form data
-    response = call_api(raw_urls=urls)
-    if type(response) == str:
-        app.logger.info('++++++ URLS: %s', urls)
-        app.logger.info('++++++ ERROR: %s', response)
-        status = "error"
-    else:
-        app.logger.info('++++++ URLS: %s', urls)
-        app.logger.info('++++++ status code: %s, json_resp: %s', response.status_code, response.json())
-        status = "success"
+    if len(urls) > 0:
+      status = "blank entry"
+      # Log the form data
+      response = call_api(raw_urls=urls)
+      if type(response) == str:
+          app.logger.info('++++++ URLS: %s', urls)
+          app.logger.info('++++++ ERROR: %s', response)
+          status = "error"
+      else:
+          app.logger.info('++++++ URLS: %s', urls)
+          app.logger.info('++++++ status code: %s, json_resp: %s', response.status_code, response.json())
+          status = "success"
     return redirect(url_for('index' , status=status))
 
 
