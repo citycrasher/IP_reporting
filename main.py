@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+   from flask import Flask, request, render_template, redirect, url_for
 import logging
 import api, settings
 app = Flask(__name__)
@@ -14,7 +14,7 @@ def index():
     return render_template('form.html', status=status)
 
 def call_api(raw_urls):
-    movie_name = "Kalki 2898 AD (2024)"
+    movie_name = "Indian 2 (2024)"
     access_token = (
         "EAANNzoa1UqQBO8aDlZAURIjz05ep75yJrAeZA6w8Hcd38g5ZAKYEtwyTsg0hroUpnGhQ5ZBwGBIZC9gHhwGQaZAc0g6Ce6LPBbiuWv2ZAVLjuacEZCadzIb6rzTwi83ZA3PIwsfEpmO2gsPTZBEqSLy0dn08IVZB1DaDaZBZBCiufpPjFRvKf8y2o3rihZBEZBG7QZDZD")
     email = settings.bx_legal_email
@@ -22,14 +22,13 @@ def call_api(raw_urls):
     name = settings.bx_name
     original_type = "VIDEO"  # PHOTO, VIDEO, ARTWORK, SOFTWARE, NAME, CHARACTER, OTHER
     owner_country = "IN"  # IN-india,
-    owner_name = "Vyjayanthi Movies"  # client name
+    owner_name = "Lyca Productions Private Limited"  # client name
     relationship = "AGENT"  # OWNER, COUNSEL, EMPLOYEE, AGENT, OTHER
     type = "COPYRIGHT"  # COPYRIGHT, TRADEMARK, COUNTERFEIT
     content_urls = raw_urls
     organization = settings.bx_name
     address = settings.bx_address
-    original_urls = ["https://www.youtube.com/watch?v=kQDd1AhGIHk", "https://www.imdb.com/title/tt12735488/",
-                     "https://en.wikipedia.org/wiki/Kalki_2898_AD"]
+    original_urls = ["https://en.wikipedia.org/wiki/Indian_2"]
 
     additional_info = api.get_additional_info(movie_name)
 
@@ -65,4 +64,4 @@ def submit():
 
 if __name__ == '__main__':
     # app.run(debug=True, port=8001)
-    app.run(debug= True, host='0.0.0.0', port=8001)
+    app.run(debug= True, host='0.0.0.0', port=8002)
