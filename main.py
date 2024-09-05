@@ -14,21 +14,21 @@ def index():
     return render_template('form.html', status=status)
 
 def call_api(raw_urls):
-    movie_name = "Indian 2 (2024)"
+    movie_name = "The Greatest of All Time (2024)"
     access_token = (
-        "EAANNzoa1UqQBO8aDlZAURIjz05ep75yJrAeZA6w8Hcd38g5ZAKYEtwyTsg0hroUpnGhQ5ZBwGBIZC9gHhwGQaZAc0g6Ce6LPBbiuWv2ZAVLjuacEZCadzIb6rzTwi83ZA3PIwsfEpmO2gsPTZBEqSLy0dn08IVZB1DaDaZBZBCiufpPjFRvKf8y2o3rihZBEZBG7QZDZD")
+        "EAANNzoa1UqQBOxHhUypZCgolkO13ZB1UCYbeVZBfvVXa0zuvpMxUZA0rHKexBxZBLEg7WhdhZArGPrPN6GLL6s1h1Mpom7jQaNpaHvoyf9iLU0wDvYIK27mm5RkFXLnCKQQjPtBdXc1IFu9ZAvZBy9XsjjgXFRePZCUwe0QBzCZCgZBCHHq4ZCLe1Kp18ga8bQZDZD")
     email = settings.bx_legal_email
     job = "Legal Operations"
     name = settings.bx_name
     original_type = "VIDEO"  # PHOTO, VIDEO, ARTWORK, SOFTWARE, NAME, CHARACTER, OTHER
     owner_country = "IN"  # IN-india,
-    owner_name = "Lyca Productions Private Limited"  # client name
+    owner_name = "AGS Entertainment Private Limited"  # client name
     relationship = "AGENT"  # OWNER, COUNSEL, EMPLOYEE, AGENT, OTHER
     type = "COPYRIGHT"  # COPYRIGHT, TRADEMARK, COUNTERFEIT
     content_urls = raw_urls
     organization = settings.bx_name
     address = settings.bx_address
-    original_urls = ["https://en.wikipedia.org/wiki/Indian_2"]
+    original_urls = ["https://en.wikipedia.org/wiki/The_Greatest_of_All_Time","https://www.imdb.com/title/tt27487934/", "https://www.youtube.com/watch?v=jxCRlebiebw"]
 
     additional_info = api.get_additional_info(movie_name)
 
@@ -64,4 +64,4 @@ def submit():
 
 if __name__ == '__main__':
     # app.run(debug=True, port=8001)
-    app.run(debug= True, host='0.0.0.0', port=9002)
+    app.run(debug= True, host='0.0.0.0', port=9003)
