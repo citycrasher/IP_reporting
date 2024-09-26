@@ -13,25 +13,21 @@ def index():
     status = request.args.get('status')
     return render_template('form.html', status=status)
 
-def call_api(raw_urls):
-    movie_name = "The Greatest of All Time (2024)"
-    access_token = (
-        "EAANNzoa1UqQBOxHhUypZCgolkO13ZB1UCYbeVZBfvVXa0zuvpMxUZA0rHKexBxZBLEg7WhdhZArGPrPN6GLL6s1h1Mpom7jQaNpaHvoyf9iLU0wDvYIK27mm5RkFXLnCKQQjPtBdXc1IFu9ZAvZBy9XsjjgXFRePZCUwe0QBzCZCgZBCHHq4ZCLe1Kp18ga8bQZDZD")
+def call_api(owner_name, original_type, original_work_url, message, infringing_url):
+    access_token = ("EAANNzoa1UqQBO0EZAZB1ZAgrMNz483f3EoMUGTruA3m5d85qm55cK15cuTXieKRX6E6gz8bfEZBzmJRZARZB8SmZC1Y9YyGVixZCBit3SUuZAKkCJrQBM6p6ofLbunIdkvl1FKHWeDG3xUc5aA1NsfLvsXKvjRElCminjeFPXfWIEypFI41xgyeoYPxEWoAZDZD")
     email = settings.bx_legal_email
-    job = "Legal Operations"
+    job = "TEST"
+    #job = "Legal Operations"
     name = settings.bx_name
-    original_type = "VIDEO"  # PHOTO, VIDEO, ARTWORK, SOFTWARE, NAME, CHARACTER, OTHER
     owner_country = "IN"  # IN-india,
-    owner_name = "AGS Entertainment Private Limited"  # client name
+    owner_name = owner_name  # client name
     relationship = "AGENT"  # OWNER, COUNSEL, EMPLOYEE, AGENT, OTHER
     type = "COPYRIGHT"  # COPYRIGHT, TRADEMARK, COUNTERFEIT
-    content_urls = raw_urls
+    content_urls = infringing_url
     organization = settings.bx_name
     address = settings.bx_address
-    original_urls = ["https://en.wikipedia.org/wiki/The_Greatest_of_All_Time","https://www.imdb.com/title/tt27487934/", "https://www.youtube.com/watch?v=jxCRlebiebw"]
-
-    additional_info = api.get_additional_info(movie_name)
-
+    original_urls = original_work_url
+    additional_info = message
     data = api.get_data(access_token=access_token, email=email, job=job, name=name, original_type=original_type,
                         owner_country=owner_country, owner_name=owner_name, relationship=relationship, type=type,
                         organization=organization, address=address, original_urls=original_urls,
@@ -45,23 +41,27 @@ def call_api(raw_urls):
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    urls = str(request.form['ip_url']).split()
-    if len(urls) > 0:
-      # Log the form data
-      response = call_api(raw_urls=urls)
-      if type(response) == str:
-          app.logger.info('++++++ URLS: %s', urls)
-          app.logger.info('++++++ ERROR: %s', response)
-          status = "error"
-      else:
-          app.logger.info('++++++ URLS: %s', urls)
-          app.logger.info('++++++ status code: %s, json_resp: %s', response.status_code, response.json())
-          status = "success"
+    urls = str(request.form['infringing_url']).split()
+    original_type = str(request.form['original_type'])
+    original_work_url = str(request.form['original_url'])
+    message = str(request.form['message'])
+    infringing_url = str(request.form['infringing_url'])
+    owner_name = str(request.form['owner_name'])
+
+    # Log the form data
+    #response = call_api(raw_urls=urls)
+    response = call_api(owner_name=owner_name, original_type=original_type,
+                        original_work_url=original_work_url, message=message, infringing_url=infringing_url)
+    if type(response) == str:
+        app.logger.info('++++++ URLS: %s', urls)
+        app.logger.info('++++++ ERROR: %s', response)
+        status = "error"
     else:
-        status = "blank entry"
+        app.logger.info('++++++ URLS: %s', urls)
+        app.logger.info('++++++ status code: %s, json_resp: %s', response.status_code, response.json())
+        status = "success"
     return redirect(url_for('index' , status=status))
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, port=8001)
-    app.run(debug= True, host='0.0.0.0', port=9003)
+    app.run(debug=True, port=8000)
