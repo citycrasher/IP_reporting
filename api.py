@@ -1,10 +1,11 @@
-
 # Block x script for Facebook API
 ### IP Reporting API ###
 
 import requests
 import json
 import settings
+
+
 def get_additional_info(movie_name):
     return settings.additional_information_template.format(movie_name=movie_name)
 
@@ -37,9 +38,6 @@ def get_data(access_token, email, job, name, original_type, owner_country, owner
         data["phone"] = phone
     if relationship_other is not None:
         data["relationship_other"] = relationship_other
-
-
-
     return data
 
 
@@ -51,31 +49,3 @@ def make_request(data):
     except Exception as e:
         return str(e)
 
-if __name__ == '__main__':
-    movie_name = "Kalki 2898 AD (2024)"
-    access_token = ("EAANNzoa1UqQBO8aDlZAURIjz05ep75yJrAeZA6w8Hcd38g5ZAKYEtwyTsg0hroUpnGhQ5ZBwGBIZC9gHhwGQaZAc0g6Ce6LPBbiuWv2ZAVLjuacEZCadzIb6rzTwi83ZA3PIwsfEpmO2gsPTZBEqSLy0dn08IVZB1DaDaZBZBCiufpPjFRvKf8y2o3rihZBEZBG7QZDZD")
-    email = settings.bx_legal_email
-    job= "TEST"
-    name= settings.bx_name
-    original_type= "VIDEO" #PHOTO, VIDEO, ARTWORK, SOFTWARE, NAME, CHARACTER, OTHER
-    owner_country= "IN" # IN-india,
-    owner_name= "Vyjayanthi Movies" # client name
-    relationship = "AGENT" #OWNER, COUNSEL, EMPLOYEE, AGENT, OTHER
-    type= "COPYRIGHT" #COPYRIGHT, TRADEMARK, COUNTERFEIT
-    content_urls= """https://www.fakework.com/example_1 https://www.fakework.com/example_2"""
-    organization = settings.bx_name
-    address = settings.bx_address
-    original_urls = ["https://www.youtube.com/watch?v=kQDd1AhGIHk", "https://www.imdb.com/title/tt12735488/", "https://en.wikipedia.org/wiki/Kalki_2898_AD"]
-    additional_info = get_additional_info(movie_name)
-
-    # data = get_data(access_token, email, job, name, original_type, owner_country, owner_name, relationship, type,
-    #          content_urls, address, original_urls,additional_info)
-
-    data = get_data(access_token=access_token, email=email, job=job, name=name, original_type=original_type,
-                    owner_country=owner_country, owner_name=owner_name, relationship=relationship, type=type,
-             organization=organization, address=address, original_urls=original_urls, content_urls=content_urls)
-
-    response = make_request(data)
-    print(data)
-    print(response.status_code)
-    print(response.json())
