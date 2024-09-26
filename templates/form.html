@@ -6,47 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>BLOCK-X</title>
   </head>
   <body>
-    <h1>The Greatest of All Time (2024)</h1>
-    <!-- ALERT -->
+    <h1>IP REPORTING</h1>
 
-    {% if status == "success" %}
-    <div class="alert alert-success d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-      <div>
-        {{status}}
-      </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ url_for('submit') }}" method="post" id="ip-reporting-form" onsubmit="return validateForm()">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Owner Name</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" name="owner_name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Original Type</label>
+                  <select class="form-control" id="exampleFormControlSelect1" name="original_type" required>
+                    <option value="">Select Type</option>
+                    <option value="VIDEO">VIDEO</option>
+                    <option value="PHOTO">PHOTO</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="originalUrl">Original Work URL</label>
+                    <textarea class="form-control" id="originalUrl" rows="2" name="original_url" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea class="form-control" id="message" rows="3" name="message" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="infringingUrl">Infringing URL</label>
+                    <textarea class="form-control" id="infringingUrl" rows="3" name="infringing_url" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+            </form>
+        </div>
     </div>
-    {% elif status == "error" %}
-    <div class="alert alert-warning d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-      <div>
-        {{status}}
-      </div>
-    </div>
-
-    {% endif %}
-
-    <form action="{{ url_for('submit') }}" method="post">
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Paste your URLs.</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" name="ip_url" rows="5"></textarea>
-      </div>
-      <input type="submit" value="Submit">
-
-    </form>
-
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Custom JS for validation -->
+    <script>
+      function validateForm() {
+        let originalType = document.getElementById("exampleFormControlSelect1").value;
+        let originalUrl = document.getElementById("originalUrl").value;
+        let message = document.getElementById("message").value;
+        let infringingUrl = document.getElementById("infringingUrl").value;
+
+        if (!originalType || !originalUrl || !message || !infringingUrl) {
+          alert("All fields are required!");
+          return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+      }
+    </script>
   </body>
 </html>
