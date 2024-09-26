@@ -16,8 +16,8 @@ def index():
 def call_api(owner_name, original_type, original_work_url, message, infringing_url):
     access_token = ("EAANNzoa1UqQBO0EZAZB1ZAgrMNz483f3EoMUGTruA3m5d85qm55cK15cuTXieKRX6E6gz8bfEZBzmJRZARZB8SmZC1Y9YyGVixZCBit3SUuZAKkCJrQBM6p6ofLbunIdkvl1FKHWeDG3xUc5aA1NsfLvsXKvjRElCminjeFPXfWIEypFI41xgyeoYPxEWoAZDZD")
     email = settings.bx_legal_email
-    job = "TEST"
-    #job = "Legal Operations"
+    #job = "TEST"
+    job = "Legal Operations"
     name = settings.bx_name
     owner_country = "IN"  # IN-india,
     owner_name = owner_name  # client name
